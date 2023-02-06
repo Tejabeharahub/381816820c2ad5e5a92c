@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Table } from 'primeng/table';
 import { PollServiceService } from './poll-service.service';
 
 @Component({
@@ -14,6 +15,8 @@ export class AppComponent implements OnInit {
   rows = 10;
   displayPollDetails:boolean=false;
   pollData:any;
+  @ViewChild('dt1') dt1: Table | undefined;
+
   constructor(private pollServiceService:PollServiceService){}
 
 
@@ -57,5 +60,11 @@ onRowSelect(event:any) {
 getPollDetails(poll : any){
   this.displayPollDetails=true;
   this.pollData = poll;
+}
+clear(table: Table) {
+  table.clear();
+}
+applyFilterGlobal($event:any, stringVal:string) {
+  this.dt1?.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
 }
 }

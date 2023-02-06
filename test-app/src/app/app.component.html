@@ -2,14 +2,26 @@
   <div class="">
     <h2>Polls Data</h2>
   </div>
-  <p-table [value]="polls" styleClass="p-datatable-gridlines" selectionMode="single" dataKey="created_at_i" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first" [tableStyle]="{'min-width': '50rem'}"
+  <p-table  #dt1 [value]="polls" styleClass="p-datatable-gridlines"  [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first" [tableStyle]="{'min-width': '50rem'}"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]"
-        (onRowSelect)="onRowSelect($event)" [(selection)]="selectedProduct1">
+        [globalFilterFields]="['title','url','author']">
+        <ng-template pTemplate="caption">
+          <div class="flex">
+              <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+              <span class="p-input-icon-left ml-auto" style="float:right
+              ">
+                  <i class="pi pi-search"></i>
+                  <input style="width:auto" pInputText type="text"(input)="applyFilterGlobal($event, 'contains')" placeholder="Search title or URL or author name" />
+              </span>
+          </div>
+      </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th style="width:25%">Title</th>
+                <th style="width:25%">Title
+                  <p-columnFilter type="text" field="title" display="menu"></p-columnFilter></th>
                 <th style="width:25%">URL</th>
-                <th style="width:25%">Created_at</th>
+                <th style="width:25%">Created_at
+                  <p-columnFilter type="text" field="created_at" display="menu"></p-columnFilter></th>
                 <th style="width:25%">Author</th>
             </tr>
         </ng-template>
@@ -17,7 +29,7 @@
             <tr (click)="getPollDetails(poll)">
                 <td>{{poll.title}}</td>
                 <td>{{poll.url}}</td>
-                <td>{{poll.created_at}}</td>
+                <td>{{poll.created_at | date: 'MM/dd/yyyy'}}</td>
                 <td>{{poll.author}}</td>
             </tr>
         </ng-template>

@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import {TableModule} from 'primeng/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {DialogModule} from 'primeng/dialog';
+import {InputTextModule} from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {DialogModule} from 'primeng/dialog';
     AppRoutingModule,
     HttpClientModule,
     TableModule,
-    DialogModule
+    DialogModule,
+    InputTextModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
