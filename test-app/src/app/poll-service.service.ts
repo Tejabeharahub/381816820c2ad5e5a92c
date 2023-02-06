@@ -9,8 +9,8 @@ export class PollServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getPollList(){
-    return this.httpClient.get("https://hn.algolia.com/api/v1/search_by_date?tags=story&page=0").pipe(map((polls:any)=>{
+  getPollList(index:number){
+    return this.httpClient.get("https://hn.algolia.com/api/v1/search_by_date?tags=story&page="+index).pipe(map((polls:any)=>{
         return polls;
     }))
   }

@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   rows = 10;
   displayPollDetails:boolean=false;
   pollData:any;
+  index:number=0
   @ViewChild('dt1') dt1: Table | undefined;
 
   constructor(private pollServiceService:PollServiceService){}
@@ -25,17 +26,23 @@ export class AppComponent implements OnInit {
   }
 
   getPolls(){
-    this.pollServiceService.getPollList().subscribe((pollsData)=>{
+    this.pollServiceService.getPollList(this.index).subscribe((pollsData)=>{
       this.polls = pollsData.hits;
     })
   }
 
   next() {
     this.first = this.first + this.rows;
+    if(this.first<=0){
+    this.index++;
+    }
 }
 
 prev() {
     this.first = this.first - this.rows;
+    if(this.first>0){
+    this.index--;
+    }
 }
 
 reset() {
@@ -66,5 +73,10 @@ clear(table: Table) {
 }
 applyFilterGlobal($event:any, stringVal:string) {
   this.dt1?.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
+}
+
+loadMore(event: any): void {
+  console.log(event);
+  // setTimeout(() => this.cars = this.allCars.slice(event.first, event.first + event.rows), 0);
 }
 }
