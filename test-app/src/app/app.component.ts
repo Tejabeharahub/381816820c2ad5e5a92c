@@ -10,8 +10,10 @@ export class AppComponent implements OnInit {
   title = 'test-app';
   polls:any[]=[];
   first = 0;
-
+  selectedProduct1: any;
   rows = 10;
+  displayPollDetails:boolean=false;
+  pollData:any;
   constructor(private pollServiceService:PollServiceService){}
 
 
@@ -43,5 +45,17 @@ isLastPage(): boolean {
 
 isFirstPage(): boolean {
     return this.polls ? this.first === 0 : true;
+}
+
+onRowSelect(event:any) {
+  // alert(1)
+  // console.log(event)
+  // console.log(this.selectedProduct1)
+  // this.messageService.add({severity:'info', summary:'Product Selected', detail: event.data.name});
+}
+
+getPollDetails(poll : any){
+  this.displayPollDetails=true;
+  this.pollData = poll;
 }
 }
